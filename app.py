@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, jsonify, send_file, abort
 from downloader import make_job_id, download_url_to, BASE_DOWNLOADS
 
 # Config: token for basic auth (set env var WEB_TOKEN for deployment)
-WEB_TOKEN = os.getenv("WEB_TOKEN", "a")
+WEB_TOKEN = os.getenv("WEB_TOKEN", "secret")
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
@@ -22,15 +22,18 @@ def authorized(req):
 def worker_download(job_id, url, as_audio):
     jobs[job_id]["status"] = "downloading"
     try:
-        # each job has its own folder to avoid collisions
+        # cada job tem sua própria pasta
         job_dir = BASE_DOWNLOADS / job_id
         job_dir.mkdir(parents=True, exist_ok=True)
         filepath = download_url_to(job_dir, url, as_audio)
         jobs[job_id]["status"] = "done"
         jobs[job_id]["path"] = str(filepath)
+        # pega o nome do vídeo
+        jobs[job_id]["title"] = filepath.stem  # nome do arquivo sem extensão
     except Exception as e:
         jobs[job_id]["status"] = "error"
         jobs[job_id]["error"] = str(e)
+
 
 @app.route("/")
 def index():

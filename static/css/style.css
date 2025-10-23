@@ -3,73 +3,95 @@
 :root {
   --bg: #0f111a;
   --card: #1b1f2a;
-  --text: #ffffff;
+  --text: #fff;
   --accent: #1db954;
   --accent-hover: #1ed760;
-  --status-color: #f0f0f0;
+  --error: #e74c3c;
+  --queued: #f1c40f;
+  --downloading: #3498db;
+  --done: #2ecc71;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
 
 body {
   background: var(--bg);
   color: var(--text);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
   padding: 2rem;
 }
 
 .container {
+  max-width: 700px;
   width: 100%;
-  max-width: 600px;
   background: var(--card);
-  padding: 2rem 2.5rem;
   border-radius: 20px;
+  padding: 2rem;
   box-shadow: 0 8px 25px rgba(0,0,0,0.5);
   animation: fadeIn 0.8s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px);}
-  to { opacity:1; transform: translateY(0);}
-}
+@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 
-.logo { width: 60px; display:block; margin: 0 auto 1rem auto; }
+.logo { display:block; margin: 0 auto 1rem; width:60px; }
+h1 { text-align:center; margin-bottom:1.5rem; }
+h2 { color: var(--accent); margin-bottom:0.8rem; font-size:1.2rem; }
 
-h1 { text-align:center; font-size:1.8rem; margin-bottom:1.5rem; }
-h2 { font-size:1.2rem; margin-bottom:1rem; color: var(--accent); }
-
-.section { margin-bottom: 2rem; }
+.section { margin-bottom:2rem; }
 input, select {
-  width: 100%;
-  padding: 0.8rem;
-  margin: 0.4rem 0 0.8rem 0;
-  border-radius: 10px;
-  border: none;
-  background: #2b2f3a;
-  color: var(--text);
+  width:100%;
+  padding:0.8rem;
+  border-radius:10px;
+  border:none;
+  background:#2b2f3a;
+  color:var(--text);
+  margin-bottom:0.6rem;
 }
-input:focus, select:focus { outline: 2px solid var(--accent); }
+input:focus, select:focus { outline:2px solid var(--accent); }
 
 button {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.5rem;
   background: var(--accent);
-  color: #fff;
-  padding: 0.8rem 1rem;
-  width: 100%;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
+  color:#fff;
+  padding:0.8rem 1rem;
+  width:100%;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
   transition: all 0.3s;
 }
 button:hover { background: var(--accent-hover); transform: scale(1.02);}
 button:active { transform: scale(0.98); }
 
-ul { list-style:none; padding-left:0; }
-li { padding:0.5rem; background:#2b2f3a; margin-bottom:0.5rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; }
+.jobs-grid { display:grid; grid-template-columns:1fr; gap:1rem; }
+.job-card {
+  background:#2b2f3a;
+  border-radius:12px;
+  padding:1rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.job-card:hover { transform: translateY(-2px); box-shadow:0 4px 20px rgba(0,0,0,0.5); }
 
-.status { font-weight:600; color: var(--status-color); }
-.downloadlink { text-decoration:none; color: var(--accent); font-weight:600; }
+.job-header { display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:0.9rem; word-break:break-word; }
+.job-header .format { font-weight:400; color:#888; }
 
-footer { text-align:center; margin-top:1.5rem; font-size:0.8rem; color:#888; }
+.progress-bar { width:100%; background:#1a1d26; border-radius:8px; height:10px; overflow:hidden; }
+.progress-fill { height:100%; width:0%; background: var(--downloading); transition: width 0.5s ease; border-radius:8px; }
+
+.job-footer { display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; }
+.status { font-weight:600; }
+.downloadlink { color: var(--accent); text-decoration:none; }
+.status:contains("done") { color: var(--done); }
+.status:contains("queued") { color: var(--queued); }
+.status:contains("downloading") { color: var(--downloading); }
+.status:contains("error") { color: var(--error); }
+
+footer { text-align:center; margin-top:2rem; font-size:0.8rem; color:#888; }
+.status-msg { margin-top:0.5rem; font-size:0.9rem; color:#aaa; word-break:break-word; }
