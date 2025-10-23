@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --bg: #0f111a;
+  --card: #1b1f2a;
+  --text: #ffffff;
+  --accent: #1db954;
+  --accent-hover: #1ed760;
+  --status-color: #f0f0f0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background: var(--card);
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity:1; transform: translateY(0);}
+}
+
+.logo { width: 60px; display:block; margin: 0 auto 1rem auto; }
+
+h1 { text-align:center; font-size:1.8rem; margin-bottom:1.5rem; }
+h2 { font-size:1.2rem; margin-bottom:1rem; color: var(--accent); }
+
+.section { margin-bottom: 2rem; }
+input, select {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.4rem 0 0.8rem 0;
+  border-radius: 10px;
+  border: none;
+  background: #2b2f3a;
+  color: var(--text);
+}
+input:focus, select:focus { outline: 2px solid var(--accent); }
+
+button {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+button:hover { background: var(--accent-hover); transform: scale(1.02);}
+button:active { transform: scale(0.98); }
+
+ul { list-style:none; padding-left:0; }
+li { padding:0.5rem; background:#2b2f3a; margin-bottom:0.5rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; }
+
+.status { font-weight:600; color: var(--status-color); }
+.downloadlink { text-decoration:none; color: var(--accent); font-weight:600; }
+
+footer { text-align:center; margin-top:1.5rem; font-size:0.8rem; color:#888; }
